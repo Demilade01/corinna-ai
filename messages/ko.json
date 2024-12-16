@@ -1,0 +1,46 @@
+{
+  "Error": {
+    "description": "<p>문제가 발생했습니다.</p><p>방문 중인 <retry>페이지를 다시 로드</retry>해보세요.</p>",
+    "title": "문제가 발생했습니다!"
+  },
+  "IndexPage": {
+    "description": "이것은 <code>next-intl</code>를 Next.js App Router와 함께 사용하는 방법을 보여주는 기본 예제입니다. 오른쪽 상단에서 언어를 변경하고 내용이 어떻게 변경되는지 확인해보세요.",
+    "title": "next-intl 예제"
+  },
+  "LocaleLayout": {
+    "title": "next-intl 예제"
+  },
+  "LocaleSwitcher": {
+    "label": "언어 변경",
+    "locale": "{locale, select, de {🇩🇪 독일어} en {🇺🇸 영어} other {알 수 없음}}"
+  },
+  "Manifest": {
+    "name": "next-intl 예제"
+  },
+  "Navigation": {
+    "home": "홈",
+    "pathnames": "경로"
+  },
+  "NotFoundPage": {
+    "description": "브라우저 주소창을 다시 확인하거나 내비게이션을 사용하여 기존 페이지로 이동하세요.",
+    "title": "페이지를 찾을 수 없습니다"
+  },
+  "PageLayout": {
+    "links": {
+      "docs": {
+        "description": "next-intl에 대한 자세한 내용을 공식 문서에서 확인하세요.",
+        "href": "https://next-intl.dev",
+        "title": "문서"
+      },
+      "source": {
+        "description": "이 예제의 소스 코드를 GitHub에서 확인하세요.",
+        "href": "https://github.com/amannn/next-intl/tree/main/examples/example-app-router",
+        "title": "소스 코드"
+      }
+    }
+  },
+  "PathnamesPage": {
+    "description": "<p>경로 이름도 국제화되었습니다.</p><p>기본 언어가 영어인 경우, 이 페이지에서 브라우저 주소창에 <code>/en/pathnames</code>가 표시됩니다.</p><p>언어를 독일어로 변경하면 URL이 이에 따라 지역화됩니다 (<code>/de/pfadnamen</code>).</p>",
+    "title": "경로"
+  }
+}
