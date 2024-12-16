@@ -1,20 +1,97 @@
-## License
+Corinna-AI
 
-This project is licensed for educational use only. For commercial use, a license must be purchased. You can obtain the license here: [Code License](https://webprodigies.com/license).
+Corinna-AI is a web app for email marketing with a chatbot specialist to enhance customer engagement, optimize campaigns, and provide real-time assistance. It’s ideal for businesses of all sizes.
 
-## Usage Guidelines
+Features
 
-Here are a few examples of how you can and cannot use the code:
+Email Marketing
 
-- **To learn?** ✅
-- **To build a portfolio?** ✅
-- **To get a job?** ✅
-- **To run as a business?** ❌
-- **To run as a SaaS?** ❌
-- **Any form of income through the code?** ❌
-- **To resell?** ❌
-- **To create content?** ❌
-- **To claim as your own?** ❌
+Campaign Creation: Design and launch email campaigns.
 
-These are just a few examples, and there may be more situations where the code usage is restricted you can read the agreement on the website.
-This code is provided strictly for learning purposes. If you wish to use our code for any commercial purposes, please purchase a license here: [Code License](https://webprodigies.com/license).
+A/B Testing: Test strategies to boost performance.
+
+Analytics: Track open rates, clicks, and conversions.
+
+Templates: Use and customize professional email designs.
+
+Chatbot Specialist
+
+24/7 Support: Offer round-the-clock AI-powered chat.
+
+Lead Capture: Qualify leads through conversations.
+
+NLP: Engage users with natural, human-like chats.
+
+Automations: Customize workflows for customer actions.
+
+Integrations
+
+CRM Tools: Connect with HubSpot, Salesforce, and more.
+
+Social Media: Manage campaigns across platforms.
+
+APIs: Extend functionality with third-party integrations.
+
+Installation
+
+Prerequisites
+
+Node.js (v16+), npm/yarn, modern browser.
+
+Steps
+
+Clone the repo:
+
+git clone https://github.com/yourusername/corinna-ai.git
+cd corinna-ai
+
+Install dependencies:
+
+npm install
+
+Start the server:
+
+npm run dev
+
+Visit http://localhost:3000.
+
+Usage
+
+Sign Up: Create an account to access the dashboard.
+
+Build Campaigns: Design email marketing strategies.
+
+Activate Chatbot: Customize workflows to engage users.
+
+Track Results: Use analytics to refine campaigns.
+
+Tech Stack
+
+Frontend: React, Vite, TailwindCSS
+
+Backend: Node.js, Express.js
+
+Database: MongoDB
+
+AI: OpenAI API
+
+Deployment: Vercel (frontend), AWS (backend)
+
+Contributing
+
+Fork the repo.
+
+Create a feature branch:
+
+git checkout -b feature-name
+
+Commit changes and push:
+
+git commit -m "Add feature"
+git push origin feature-name
+
+Open a Pull Request.
+
+License
+
+Licensed under the MIT License.
