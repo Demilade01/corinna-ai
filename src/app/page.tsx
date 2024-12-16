@@ -11,15 +11,15 @@ import {
 } from '@/components/ui/card'
 import { pricingCards } from '@/constants/landing-page'
 import clsx from 'clsx'
-import { ArrowRightCircleIcon, Check } from 'lucide-react'
+import { Check } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import parse from 'html-react-parser'
+// import { useTranslations } from 'next-intl'
 import { getMonthName } from '@/lib/utils'
-import { useTranslations } from 'next-intl'
 
 export default async function Home() {
-  const t = useTranslations('Home');
+  // const t = useTranslations('Home');
 
   const posts:
     | {
