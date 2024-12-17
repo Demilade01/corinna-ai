@@ -59,6 +59,7 @@
     "next-intl": "^3.26.1",
     "next-themes": "^0.3.0",
     "nodemailer": "^6.9.13",
+    "npm-check-updates": "^17.1.11",
     "openai": "^4.47.1",
     "prisma": "^5.13.0",
     "pusher": "^5.2.0",

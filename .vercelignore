@@ -2,7 +2,7 @@
 
 # Ignore node_modules (Vercel automatically installs dependencies)
 node_modules
-
+src
 # Ignore log files
 *.log
 
