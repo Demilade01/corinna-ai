@@ -1,0 +1,13 @@
+# .vercelignore
+
+# Ignore node_modules (Vercel automatically installs dependencies)
+node_modules
+
+# Ignore log files
+*.log
+
+# Ignore local environment variables
+.env.local
+
+# Ignore build output
+.next
