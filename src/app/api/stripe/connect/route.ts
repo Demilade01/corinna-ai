@@ -1,58 +1,152 @@
-import Stripe from 'stripe';
-import { NextRequest, NextResponse } from 'next/server';
+import { client } from '@/lib/prisma'
+import { currentUser } from '@clerk/nextjs'
+import { NextResponse } from 'next/server'
+import Stripe from 'stripe'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET!, {
-  apiVersion: '2024-04-10',
   typescript: true,
-});
+  apiVersion: '2024-04-10',
+})
 
-export async function POST(req: NextRequest) {
+export async function GET() {
   try {
-    const body = await req.json();
+    const user = await currentUser()
+    if (!user) return new NextResponse('User not authenticated')
 
-    const params: Stripe.Checkout.SessionCreateParams = {
-      submit_type: 'pay',
-      mode: 'payment',
-      payment_method_types: ['card'],
-      billing_address_collection: 'auto',
-      shipping_options: [
-        { shipping_rate: 'shr_1Oiw9BBUF1IOPuPLKXfhFVsu' },
-        { shipping_rate: 'shr_1OjJTMBUF1IOPuPL2s5Bsqp7' },
-      ],
-      line_items: body.map((item: any) => {
-        const img = item.image[0]?.asset?._ref || '';
-        const newImage = img
-          .replace('image-', 'https://cdn.sanity.io/images/itj5ehjn/production/')
-          .replace('-webp', '.webp');
+    const account = await stripe.accounts.create({
+      country: 'US',
+      type: 'custom',
+      business_type: 'company',
+      capabilities: {
+        card_payments: {
+          requested: true,
+        },
+        transfers: {
+          requested: true,
+        },
+      },
+      external_account: 'btok_us',
+      tos_acceptance: {
+        date: 1547923073,
+        ip: '172.18.80.19',
+      },
+    })
 
-        return {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: item.name,
-              images: [newImage],
-            },
-            unit_amount: Math.round(item.price * 100),
+    if (account) {
+      const approve = await stripe.accounts.update(account.id, {
+        business_profile: {
+          mcc: '5045',
+          url: 'https://bestcookieco.com',
+        },
+        company: {
+          address: {
+            city: 'Fairfax',
+            line1: '123 State St',
+            postal_code: '22031',
+            state: 'VA',
           },
-          adjustable_quantity: {
-            enabled: true,
-            minimum: 1,
+          tax_id: '000000000',
+          name: 'The Best Cookie Co',
+          phone: '8888675309',
+        },
+      })
+      if (approve) {
+        const person = await stripe.accounts.createPerson(account.id, {
+          first_name: 'Jenny',
+          last_name: 'Rosen',
+          relationship: {
+            representative: true,
+            title: 'CEO',
           },
-          quantity: item.quantity,
-        };
-      }),
-      success_url: `${req.headers.get('origin')}/success`,
-      cancel_url: `${req.headers.get('origin')}/canceled`,
-    };
+        })
+        if (person) {
+          const approvePerson = await stripe.accounts.updatePerson(
+            account.id,
+            person.id,
+            {
+              address: {
+                city: 'victoria ',
+                line1: '123 State St',
+                postal_code: 'V8P 1A1',
+                state: 'BC',
+              },
+              dob: {
+                day: 10,
+                month: 11,
+                year: 1980,
+              },
+              ssn_last_4: '0000',
+              phone: '8888675309',
+              email: 'jenny@bestcookieco.com',
+              relationship: {
+                executive: true,
+              },
+            }
+          )
+          if (approvePerson) {
+            const owner = await stripe.accounts.createPerson(account.id, {
+              first_name: 'Kathleen',
+              last_name: 'Banks',
+              email: 'kathleen@bestcookieco.com',
+              address: {
+                city: 'victoria ',
+                line1: '123 State St',
+                postal_code: 'V8P 1A1',
+                state: 'BC',
+              },
+              dob: {
+                day: 10,
+                month: 11,
+                year: 1980,
+              },
+              phone: '8888675309',
+              relationship: {
+                owner: true,
+                percent_ownership: 80,
+              },
+            })
+            if (owner) {
+              const complete = await stripe.accounts.update(account.id, {
+                company: {
+                  owners_provided: true,
+                },
+              })
+              if (complete) {
+                const saveAccountId = await client.user.update({
+                  where: {
+                    clerkId: user.id,
+                  },
+                  data: {
+                    stripeId: account.id,
+                  },
+                })
 
-    const session = await stripe.checkout.sessions.create(params);
+                if (saveAccountId) {
+                  const accountLink = await stripe.accountLinks.create({
+                    account: account.id,
+                    refresh_url:
+                      'http://localhost:3000/callback/stripe/refresh',
+                    return_url: 'http://localhost:3000/callback/stripe/success',
+                    type: 'account_onboarding',
+                    collection_options: {
+                      fields: 'currently_due',
+                    },
+                  })
 
-    return NextResponse.json({ url: session.url });
+                  return NextResponse.json({
+                    url: accountLink.url,
+                  })
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   } catch (error) {
-    console.error('Error:', error);
-    return NextResponse.json(
-      { message: 'Failed to create Stripe session' },
-      { status: 500 }
-    );
+    console.error(
+      'An error occurred when calling the Stripe API to create an account:',
+      error
+    )
   }
 }
