@@ -1,12 +1,8 @@
-import {getRequestConfig} from 'next-intl/server';
+// filepath: /src/i18n/request.ts
+import { NextRequest } from 'next/server';
 
-export default getRequestConfig(async () => {
-  // Provide a static locale, fetch a user setting,
-  // read from `cookies()`, `headers()`, etc.
-  const locale = ['en', 'ko', 'ru'].includes('en') ? 'en' : 'ko';
-
-  return {
-    locale,
-    messages: (await import(`../../messages/${locale}.json`)).default
-  };
-});
+export default function getLocaleFromRequest(request: NextRequest) {
+  // Extract the locale from the request (e.g., from the URL or headers)
+  const locale = request.headers.get('accept-language')?.split(',')[0] || 'en';
+  return locale;
+}

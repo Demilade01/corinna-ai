@@ -2,7 +2,7 @@
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const withNextIntl = createNextIntlPlugin(
-  '/src/i18n/request.ts',
+  './src/i18n/request.ts', // Ensure this path is correct
 );
 
 const nextConfig = {
