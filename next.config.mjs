@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
-import createNextIntlPlugin from 'next-intl/plugin';
 
-const withNextIntl = createNextIntlPlugin(
-  'next-i18next.config.ts', // Ensure this path is correct
-);
+
 
 const nextConfig = {
   reactStrictMode: false,
@@ -21,4 +18,4 @@ const nextConfig = {
   },
 }
 
-export default withNextIntl(nextConfig);
+export default (nextConfig);
