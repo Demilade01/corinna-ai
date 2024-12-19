@@ -1,0 +1,2 @@
+# .vercelignore
+/src/app/api/stripe/connect/route.ts
