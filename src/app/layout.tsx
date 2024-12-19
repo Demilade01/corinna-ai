@@ -5,7 +5,6 @@ import './globals.css'
 import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from '@/context/them-provider'
 import {NextIntlClientProvider} from 'next-intl';
-import {getLocale, getMessages} from 'next-intl/server';
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ['latin'] })
 
@@ -19,13 +18,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const locale = await getLocale();
-  const messages = await getMessages();
 
   return (
-    <NextIntlClientProvider messages={messages}>
       <ClerkProvider>
-        <html lang={locale}>
+        <html lang="en">
           <body className={jakarta.className}>
             <ThemeProvider
               attribute="class"
@@ -38,6 +34,5 @@ export default async function RootLayout({
           </body>
         </html>
       </ClerkProvider>
-    </NextIntlClientProvider>
   )
 }
