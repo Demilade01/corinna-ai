@@ -1,2 +1,3 @@
 # .vercelignore
 /src/app/api/stripe/connect/route.ts
+/src/app/(dashboard)/conversation/page.tsx
